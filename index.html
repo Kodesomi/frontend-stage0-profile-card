@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile Card — Frontend Wizards</title>
+
+  <!-- Nice system font stack + optional Google Font (uncomment if online) -->
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> -->
+
+  <style>
+    :root{
+      --bg1: #0f172a;
+      --bg2: #0b2545;
+      --card-bg: #ffffff;
+      --muted: #6b7280;
+      --accent: #0ea5a4;
+      --focus: 3px;
+      --max-width: 820px;
+    }
+    /* Page background */
+    html,body{height:100%;margin:0}
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:2rem;
+      color:#0b1220;
+    }
+
+    /* Card container (semantic article with data-testid="test-profile-card") */
+    article[data-testid="test-profile-card"]{
+      width:100%;
+      max-width:var(--max-width);
+      background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.98));
+      border-radius:14px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      padding:1.25rem;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:1rem;
+      align-items:start;
+      outline: none;
+    }
+
+    /* Larger layout on wide screens: avatar left, content right */
+    @media(min-width:720px){
+      article[data-testid="test-profile-card"]{
+        grid-template-columns: 220px 1fr;
+        gap:1.5rem;
+        padding:1.75rem;
+      }
+    }
+
+    /* Avatar area */
+    figure{
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      gap:0.75rem;
+      align-items:center;
+    }
+
+    img[data-testid="test-user-avatar"]{
+      width:160px;
+      height:160px;
+      border-radius:50%;
+      object-fit:cover;
+      display:block;
+      border:4px solid rgba(14,165,164,0.12);
+      box-shadow: 0 8px 18px rgba(2,6,23,0.25);
+    }
+
+    /* File input styling (accessible) */
+    .avatar-controls{
+      display:flex;
+      gap:0.5rem;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+    }
+    .sr-only{
+      position:absolute!important;
+      height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);
+      white-space:nowrap;border:0;padding:0;margin:-1px;
+    }
+    .btn{
+      background:transparent;
+      border:1px solid rgba(11,18,32,0.08);
+      padding:0.4rem 0.65rem;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.9rem;
+    }
+    .btn:focus{
+      outline: none;
+      box-shadow: 0 0 0 var(--focus) rgba(14,165,164,0.18);
+    }
+
+    /* Content area */
+    .profile-main{padding:0 0.25rem}
+    h2[data-testid="test-user-name"]{
+      margin:0 0 0.25rem;
+      font-size:1.25rem;
+      font-weight:700;
+      color:#071128;
+    }
+    p[data-testid="test-user-bio"]{
+      margin:0 0.6rem;
+      color:var(--muted);
+      line-height:1.45;
+    }
+
+    /* Time line */
+    .time-row{
+      margin:0.25rem 0 0.75rem;
+      font-size:0.9rem;
+      color:#0b1220;
+      display:flex;
+      gap:0.5rem;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .time-row strong{color:#0b1220;font-weight:700}
+
+    /* Social nav */
+    nav[data-testid="test-user-social-links"] ul{
+      list-style:none;padding:0;margin:0;display:flex;gap:0.5rem;flex-wrap:wrap;
+    }
+    nav a{
+      display:inline-block;
+      padding:0.4rem 0.6rem;
+      border-radius:8px;
+      text-decoration:none;
+      color:var(--accent);
+      background: rgba(14,165,164,0.06);
+      font-weight:600;
+    }
+    nav a:focus{
+      outline:none;
+      box-shadow: 0 0 0 var(--focus) rgba(14,165,164,0.18);
+    }
+
+    /* Lists: hobbies & dislikes */
+    .lists{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:0.75rem;
+      margin-top:0.6rem;
+    }
+    @media(min-width:720px){
+      .lists{grid-template-columns:1fr 1fr}
+    }
+    section h3{margin:0;font-size:0.95rem;font-weight:700;color:#071128}
+    ul[data-testid="test-user-hobbies"],
+    ul[data-testid="test-user-dislikes"]{
+      margin:0.35rem 0 0 0;
+      padding-left:1.15rem;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    /* Focus visible customization for keyboard users */
+    :focus-visible{outline-offset:3px;}
+
+    /* Small helper */
+    .muted{color:var(--muted);font-size:0.9rem}
+    .center{display:flex;justify-content:center;align-items:center}
+  </style>
+</head>
+<body>
+  <!-- Root article with required data-testid -->
+  <article data-testid="test-profile-card" aria-labelledby="profileName">
+    <!-- Avatar column -->
+    <figure>
+      <!-- Avatar image with required testid and alt -->
+      <img src="https://i.pravatar.cc/300?img=12" alt="Profile photo of Kamorudeen Adeleke O." data-testid="test-user-avatar" id="avatarImg">
+      <figcaption class="sr-only" id="avatarCaption">User avatar</figcaption>
+
+      <!-- Avatar upload: accessible label + input (optional) -->
+      <div class="avatar-controls">
+        <label for="avatarFile" class="btn" aria-label="Upload avatar">Upload</label>
+        <input id="avatarFile" class="sr-only" type="file" accept="image/*" aria-describedby="avatarCaption">
+        <button id="resetAvatar" class="btn" type="button">Reset</button>
+      </div>
+    </figure>
+
+    <!-- Main content column -->
+    <div class="profile-main">
+      <!-- Name (required data-testid) -->
+      <h2 id="profileName" data-testid="test-user-name">Kamorudeen Adeleke Odesomi</h2>
+
+      <!-- Short bio (required data-testid) -->
+      <p data-testid="test-user-bio">
+        Frontend developer in training. I build accessible, responsive interfaces using semantic HTML, modern CSS, and vanilla JavaScript. I enjoy clean UI, learning new tools, and mentoring others.
+      </p>
+
+      <!-- Time in milliseconds (required) -->
+      <div class="time-row">
+        <span class="muted">Current time (ms):</span>
+        <strong id="timeMs" data-testid="test-user-time" aria-live="polite">...</strong>
+      </div>
+
+      <!-- Social links nav (required testid) -->
+      <nav aria-label="Social links" data-testid="test-user-social-links">
+        <ul>
+          <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-twitter">Twitter</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-github">GitHub</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-linkedin">LinkedIn</a></li>
+        </ul>
+      </nav>
+
+      <!-- Lists: hobbies and dislikes (required testids) -->
+      <div class="lists" role="region" aria-label="Personal details">
+        <section aria-labelledby="hobbyTitle">
+          <h3 id="hobbyTitle">Hobbies</h3>
+          <ul data-testid="test-user-hobbies">
+            <li>Coding</li>
+            <li>Photography</li>
+            <li>Reading</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="dislikeTitle">
+          <h3 id="dislikeTitle">Dislikes</h3>
+          <ul data-testid="test-user-dislikes">
+            <li>Procrastination</li>
+            <li>Poor accessibility</li>
+            <li>Distracting notifications</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  <script>
+    // ========== Time (ms) logic ==========
+    // We render Date.now() immediately and update reasonably so the value is fresh.
+    const timeEl = document.querySelector('[data-testid="test-user-time"]');
+    function setTimeNow(){
+      // show current milliseconds (as a number). Tests allow small delta, so this is okay.
+      timeEl.textContent = Date.now();
+    }
+    // initial render
+    setTimeNow();
+    // update once per second to keep it current (keeps accessible aria-live content flowing)
+    setInterval(setTimeNow, 1000);
+
+    // ========== Avatar upload preview ==========
+    const avatarImg = document.querySelector('[data-testid="test-user-avatar"]');
+    const fileInput = document.getElementById('avatarFile');
+    const resetBtn = document.getElementById('resetAvatar');
+    const defaultSrc = avatarImg.src;
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      // basic file type check
+      if (!file.type.startsWith('image/')) {
+        alert('Please choose an image file.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        avatarImg.src = reader.result;
+        avatarImg.alt = `Uploaded avatar of ${document.querySelector('[data-testid="test-user-name"]').textContent}`;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    resetBtn.addEventListener('click', () => {
+      avatarImg.src = defaultSrc;
+      avatarImg.alt = 'Profile photo';
+      fileInput.value = '';
+    });
+
+    // Accessibility: make upload label clickable by proxying click to hidden file input
+    document.querySelector('label[for="avatarFile"]').addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    // Make sure all links are keyboard focusable - already anchors so good for tests.
+  </script>
+</body>
+</html>
