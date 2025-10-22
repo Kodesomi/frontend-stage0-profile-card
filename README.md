@@ -1,38 +1,34 @@
-# Frontend Wizards - Profile Card (HNG Stage 0)
+# Frontend Wizards — Stage 0 & Stage 1 (Profile, Contact & About)
 
-Simple accessible, responsive Profile Card built for HNG Internship — Stage 0.
+This repository contains my Stage 0 Profile Card and Stage 1 pages (Contact & About) for the Frontend Wizards / HNG Internship tasks.
 
 ## Live Demo
-https://<your-username>.github.io/frontend-stage0-profile-card/
-(or your Netlify URL)
+https://kodesomi.github.io/frontend-stage0-profile-card/
+<!-- Replace above link with your Netlify or GitHub Pages URL if different -->
 
 ## Files
-- `index.html` — single-file implementation (HTML/CSS/JS)
+- `index.html` — Profile Card (Stage 0)
+- `contact.html` — Contact form with validation (Stage 1)
+- `about.html` — About Me / reflections (Stage 1)
 
 ## How to run locally
-1. Download or clone the repo.
-2. Open `index.html` in your browser (double-click or right-click → Open with → Browser).
+1. Clone or download the repository.
+2. Open any file (`index.html`, `contact.html`, `about.html`) in your browser (double-click the file or right-click → Open with → Browser).
 
-## Requirements met
+## Requirements implemented
 - All required `data-testid` attributes are present:
-  - `test-profile-card`
-  - `test-user-name`
-  - `test-user-bio`
-  - `test-user-time`
-  - `test-user-avatar`
-  - `test-user-social-links` and per-network IDs (twitter/github/linkedin)
-  - `test-user-hobbies`
-  - `test-user-dislikes`
-- Current time displays `Date.now()` (updates each second).
-- Avatar upload preview and reset included.
-- Semantic HTML (article, figure, nav, section, headings).
-- Responsive layout for mobile/tablet/desktop.
-- Keyboard-focusable links and visible focus styles.
+  - Profile: `test-profile-card`, `test-user-name`, `test-user-bio`, `test-user-time`, `test-user-avatar`, `test-user-social-links`, `test-user-hobbies`, `test-user-dislikes`
+  - Contact: `test-contact-name`, `test-contact-email`, `test-contact-subject`, `test-contact-message`, `test-contact-submit`, `test-contact-error-<field>`, `test-contact-success`
+  - About: `test-about-page`, `test-about-bio`, `test-about-goals`, `test-about-confidence`, `test-about-future-note`, `test-about-extra`
+- `test-user-time` displays `Date.now()` and updates.
+- Contact form validates inputs and prevents invalid submissions.
+- Semantic HTML (article, main, section, nav, figure, headings) and ARIA associations for accessibility.
+- Responsive layout for mobile, tablet, and desktop.
+- Keyboard navigable controls and visible focus styles.
 
 ## Notes
-- If using GitHub Pages, ensure `index.html` is in the repository root.
-- If the live demo doesn't show immediately, wait a few minutes and refresh.
+- Avatar upload preview available on the Profile Card (index.html).
+- If Pages shows a 404, ensure `index.html` is in the repository root and GitHub Pages is set to the `main` branch and root folder.
 
 ## Contact
-Kamorudeen Adeleke Odesomi — (add your email if you want)
-
+Kamorudeen Adeleke Odesomi — (add your email here if you want)
