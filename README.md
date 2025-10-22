@@ -31,4 +31,4 @@ https://kodesomi.github.io/frontend-stage0-profile-card/
 - If Pages shows a 404, ensure `index.html` is in the repository root and GitHub Pages is set to the `main` branch and root folder.
 
 ## Contact
-Kamorudeen Adeleke Odesomi — (add your email here if you want)
+Kamorudeen Adeleke Odesomi — (Kodesomi@gmail.com)
